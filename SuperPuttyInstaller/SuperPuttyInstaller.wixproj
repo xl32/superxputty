@@ -5,6 +5,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
+  <!-- embedded PuTTY: built by SuperPutty.csproj whenever the putty sources are present -->
+  <PropertyGroup Condition="Exists('$(MSBuildThisFileDirectory)..\putty\CMakeLists.txt')">
+    <DefineConstants>$(DefineConstants);HavePuttyEmbed</DefineConstants>
+  </PropertyGroup>
   <!-- see SuperPutty.csproj: dotnet CLI builds need System.Resources.Extensions -->
   <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
     <DefineConstants>$(DefineConstants);PreserializedResources</DefineConstants>

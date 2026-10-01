@@ -91,6 +91,11 @@
       <Component Id="ProductLibRuntimeCaching">
         <File Id="System.Runtime.Caching.dll" Source="$(var.SuperPutty.TargetDir)System.Runtime.Caching.dll" />
       </Component>
+<?ifdef HavePuttyEmbed?>
+      <Component Id="ProductPuttyEmbed">
+        <File Id="putty_embed.dll" Source="$(var.SuperPutty.TargetDir)putty-embed.dll" />
+      </Component>
+<?endif?>
       <Component Id="ProductLibLogging">
         <File Id="log4net.dll" Source="$(var.SuperPutty.TargetDir)\log4net.dll" />
       </Component>

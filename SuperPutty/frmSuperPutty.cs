@@ -1980,17 +1980,8 @@ namespace SuperPutty
         /// <param name="e"></param>
         private void checkForPuttyPlusUpdates(object sender, EventArgs e)
         {
-            if (SuperPuTTY.Settings.PuttyExe == null || SuperPuTTY.Settings.PuttyExe == string.Empty)
-            {
-                // No PuTTY executable set. Ignore checking for updates.
+            if (!UsesExternalPuttyPlus)
                 return;
-            }
-
-            if (SuperPuTTY.PuTTYAppName != "PuTTY Plus")
-            {
-                // Update check only for PuTTY Plus
-                return;
-            }
 
             Log.Info("Checking for PuTTY Plus update");
             try
@@ -2309,14 +2300,16 @@ namespace SuperPutty
 
         private void helpToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            if (SuperPuTTY.PuTTYAppName != "PuTTY Plus")
-            {
-                checkForPuTTYPlusUpdatesToolStripMenuItem.Visible = false;
-            }
-            else
-            {
-                checkForPuTTYPlusUpdatesToolStripMenuItem.Visible = true;
-            }
+            checkForPuTTYPlusUpdatesToolStripMenuItem.Visible = UsesExternalPuttyPlus;
+        }
+
+        /// <summary>
+        /// true if terminals run in an external PuTTY Plus, whose updates we check for. The
+        /// embedded PuTTY ships with SuperXPuTTY and is updated with it.
+        /// </summary>
+        private static bool UsesExternalPuttyPlus
+        {
+            get { return !PuttyEmbed.IsEnabled && SuperPuTTY.IsPuTTYPlus; }
         }
 
         private void checkForPuTTYPlusUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
